@@ -22,10 +22,15 @@ but it prints a gibberish flag for some reason.
 
 But, we can just patch the binary and make the if(condition) in printFlag() always true. And then directly run the printFlag() function.
 
-For this, we load the binary in radare2 in write mode, analyze it (aaa, afl), seek to printFlag() (s sym.printFlag()), and enter visual disassembly mode. 
+![image](https://user-images.githubusercontent.com/73381089/167317221-09650433-27db-4d6a-96c6-22349020ce5f.png)
+
+For this, we load the binary in radare2 in write mode, analyze it (aaa, afl), seek to printFlag() (s dbg.printFlag()), and enter visual disassembly mode. 
 Then, press "c", seek to the jns instruction (conditional jump), press "i", enter "eb" (opcode for simple jmp instruction), press enter, and quit.
 Now, we have patched the binary such that it checks if we are using a debugger in printFlag(), but jumps to decryptAndPrint() anyways.
 
 ![Screenshot_20220509_004102](https://user-images.githubusercontent.com/73381089/167311934-620d6190-93cf-4bb5-bb6a-9d224c0457b4.png)
 
 Now, we load the binary in gdb, and run the above mentioned gdb commands and get our flag: CTF{3xpl0!t_Rev3rs!nG_3G}
+
+![image](https://user-images.githubusercontent.com/73381089/167317286-d110aad4-f6a0-4430-b5b8-81e9e7bfb8bf.png)
+
